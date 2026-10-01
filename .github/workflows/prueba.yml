@@ -1,0 +1,7 @@
+name: Prueba de servidor
+on: workflow_dispatch
+jobs:
+  hola:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "El servidor de GitHub funciona"
