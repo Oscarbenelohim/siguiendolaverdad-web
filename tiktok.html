@@ -1,5 +1,30 @@
 <!doctype html>
 <html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Conectado · Siguiendo la Verdad</title>
-<style>body{margin:0;background:#efe3ca;color:#1e1a16;font:20px/1.6 Georgia,serif;display:flex;min-height:100vh;align-items:center;justify-content:center;text-align:center}</style>
-</head><body><main><h1>✅ TikTok conectado</h1><p>Ya puedes cerrar esta pestaña.</p><p><a href="index.html">Siguiendo la Verdad</a></p></main></body></html>
+<title>Conectar TikTok · Siguiendo la Verdad</title>
+<style>
+body{margin:0;background:#efe3ca;color:#1e1a16;font:20px/1.6 Georgia,serif;display:flex;min-height:100vh;align-items:center;justify-content:center;text-align:center;padding:0 16px}
+main{max-width:640px}
+button{font:inherit;font-size:22px;padding:14px 28px;border-radius:40px;border:0;background:#1e1a16;color:#efe3ca;cursor:pointer}
+code{display:block;word-break:break-all;background:#fff8e8;border-radius:10px;padding:12px;margin:16px 0;font-size:14px}
+.ok{color:#2e7d32}
+</style>
+</head><body><main id="m"><h1>Siguiendo la Verdad</h1><p>Esta página recibe el permiso de TikTok.</p></main>
+<script>
+const p = new URLSearchParams(location.search);
+const m = document.getElementById('m');
+const codigo = p.get('code');
+if (codigo) {
+  m.innerHTML = '<h1>✅ TikTok dio el permiso</h1><p>Último paso: copia el código y vuelve a abrir <b>Conectar TikTok</b> en el PC.</p>' +
+    '<code id="c"></code><button id="b">Copiar código</button><p id="e"></p>';
+  document.getElementById('c').textContent = codigo;
+  const copiar = async () => {
+    try { await navigator.clipboard.writeText(codigo); document.getElementById('e').innerHTML = '<span class="ok">Copiado ✔ Ahora abre «Conectar TikTok».</span>'; }
+    catch { document.getElementById('e').textContent = 'Selecciona el código y cópialo con Ctrl+C.'; }
+  };
+  document.getElementById('b').onclick = copiar;
+  copiar();
+} else if (p.get('error')) {
+  m.innerHTML = '<h1>No se dio el permiso</h1><p>TikTok respondió: ' + (p.get('error_description') || p.get('error')).replace(/[<>]/g, '') + '</p>';
+}
+</script>
+</body></html>
